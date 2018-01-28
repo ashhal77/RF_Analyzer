@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        >
+        <com.github.anastr.speedviewlib.ProgressiveGauge
+            android:id="@+id/progressiveGauge"
+            android:layout_width="300dp"
+            app:sv_speedTextSize="11dp"
+            app:sv_unitTextSize="10dp"
+            app:sv_withEffects3D="false"
+            app:sv_withTremble="false"
+            app:sv_speedTextFormat="INTEGER"
+            app:sv_minSpeed="-140"
+            app:sv_maxSpeed="10"
+            android:layout_centerInParent="true"
+            app:sv_speedometerColor="#000077"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="15dp"
+                android:layout_height="0dp"
+                android:layout_weight="70"
+                android:padding="5dp"
+                android:weightSum="100"
+                android:orientation="vertical"
                 android:id="@+id/relLayout">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/operator"
@@ -109,4 +148,21 @@
         android:layout_alignStart="@+id/value10"
         android:layout_alignTop="@+id/cellid"
         android:text="TextView"/>
-</RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        >
+        <Button
+            android:id="@+id/info1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:text="Send Info"
+            tools:text="Send Info"/>
+    </RelativeLayout>
+</LinearLayout>
+</LinearLayout>

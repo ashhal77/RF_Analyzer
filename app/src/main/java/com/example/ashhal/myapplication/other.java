@@ -20,5 +20,6 @@ public class other extends Fragment {
 
         return rootView;
     }
-
 }
+
+

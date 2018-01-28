@@ -15,12 +15,9 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +28,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,7 +42,7 @@ import static android.os.Build.VERSION_CODES.M;
  * Created by Ashhal on 16-Oct-17.
  */
 
-public class wifi extends Fragment {
+public class wifi extends Fragment implements View.OnClickListener {
 
 
     WifiManager wifi;
@@ -58,6 +54,7 @@ public class wifi extends Fragment {
 
     String ITEM_KEY = "key";
     List<String> arraylist = new ArrayList<String>();
+    List<String> listOfNetworks = new ArrayList<String>();
     ArrayAdapter adapter;
     String whole_data;
 
@@ -76,17 +73,13 @@ public class wifi extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
-
+        super.onActivityCreated(savedInstanceState);
                 //DO everything here
-//                buttonScan = (Button) getActivity().findViewById(R.id.scan);
-//                buttonScan.setOnClickListener(wifi.this);
+                buttonScan = (Button) getActivity().findViewById(R.id.scan);
+               buttonScan.setOnClickListener(this);
 
                 lv = (ListView) getActivity().findViewById(R.id.wifilist);
                 //arraylist.add("hello");
-
-
-                this.adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arraylist);
-                lv.setAdapter(this.adapter);
 
                 // enables wifi if its disabled
                 wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -96,26 +89,25 @@ public class wifi extends Fragment {
                     wifi.setWifiEnabled(true);
                 }//putting the data in the array
 
-
-
-                adapter.notifyDataSetChanged();
-                super.onActivityCreated(savedInstanceState);
+                this.adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arraylist);
+                lv.setAdapter(this.adapter);
 
         //*****starting code for set on item click listener**********************************************************
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long rowId) {
+                                                final int position, long rowId) {
 
 
                             AlertDialog.Builder adb = new AlertDialog.Builder(
                                     wifi.this.getActivity());
                             adb.setTitle(String.valueOf(parent.getItemAtPosition(position)));
-                            adb.setMessage("Ammar Bharwa");
+                            adb.setMessage("HEllo HELLO");
                             //Context context = mapView.getContext();
                             final String ssid = String.valueOf(parent.getItemAtPosition(position));
                             final EditText input = new EditText(wifi.this.getActivity());
+                            //input.setText("purplered");
                             adb.setView(input);
                             adb.setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
@@ -124,8 +116,12 @@ public class wifi extends Fragment {
             //                            Toast.LENGTH_SHORT).show();
 
                                     WifiConfiguration wifiConfig = new WifiConfiguration();
-                                    wifiConfig.SSID = String.format("\"%s\"", "AndroidAP");
-                                    wifiConfig.preSharedKey = String.format("\"%s\"", "dvye7401");
+//                                    wifiConfig.SSID = "\"HUAWEI P10\"";
+//                                    wifiConfig.preSharedKey = "\"11223344\"";
+
+                                    wifiConfig.SSID = String.format("\"%s\"",listOfNetworks.get(position));
+                                    wifiConfig.preSharedKey =  String.format("\"%s\"",input.getText().toString().trim());
+
 
                                     WifiManager wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(WIFI_SERVICE);
                                     int netId = wifiManager.addNetwork(wifiConfig);
@@ -166,7 +162,7 @@ public class wifi extends Fragment {
                                                 wifiInfo.getFrequency();
 
 
-                                        Intent i = new Intent(wifi.this.getActivity(), wifi.class);
+                                        Intent i = new Intent(wifi.this.getActivity(), wifiChild.class);
                                         //Create the bundle
                                         Bundle bundle = new Bundle();
 
@@ -189,7 +185,7 @@ public class wifi extends Fragment {
 
                     });
 
-
+//        scanWifiNetworks();
         //**********End of code for on item click listener************************************************************************
 
 
@@ -199,7 +195,7 @@ public class wifi extends Fragment {
 
     //*************start to add code that was outside activity ****************************************************
 
-
+                    //runs on scan button click
                     public void onClick(View view)
                     {
                         if(Build.VERSION.SDK_INT >= M && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -215,6 +211,7 @@ public class wifi extends Fragment {
                     private void scanWifiNetworks(){
 
                         arraylist.clear();
+                        listOfNetworks.clear();
                         getActivity().registerReceiver(wifi_receiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
                         wifi.startScan();
@@ -238,17 +235,10 @@ public class wifi extends Fragment {
 
                             try
                             {
-                //                while (size > 0)
-                //                {
-                //                    size--;
-                //                    arraylist.add(results.get(size).SSID + " hello ");
-                //                    adapter.notifyDataSetChanged();
-                //                }
-
-
                                 for (ScanResult scanResult : results) {
                                     //int level = WifiManager.calculateSignalLevel(scanResult.level, 5);
                                     arraylist.add(scanResult.SSID + " \t\t\t\t\t\t " +scanResult.level+" dbm  " +   scanResult.frequency + "  MHz");
+                                    listOfNetworks.add(scanResult.SSID);
                                     adapter.notifyDataSetChanged();
                                     System.out.println("Level is " + level + " out of 5");
 

@@ -2,23 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.ashhal.myapplication">
 
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.REQUEST_FINE_LOCATION" />
-
-    <!--WIFI Connecet permission-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--WIFI Connecet permission-->
-
-    <!--Phone signal Connect permission-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.REQUEST_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- WIFI Connecet permission -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- WIFI Connecet permission -->
+
+
+    <!-- Phone signal Connect permission -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,9 +33,17 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".wifiChild">
+        </activity>
+        <activity android:name=".SettingActivity">
+        </activity>
+        <activity
+            android:name=".Connect_Server"
+            android:label="@string/title_activity_connect__server"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="15dp"
-                android:id="@+id/relLayout">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:gauge="http://schemas.android.com/tools"
+    android:padding="15dp"
+    android:weightSum="100"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="30"
+        >
+        <com.github.anastr.speedviewlib.PointerSpeedometer
+            android:id="@+id/awesomeSpeedometer"
+            android:layout_width="wrap_content"
+            app:sv_speedTextSize="11dp"
+            app:sv_unitTextSize="10dp"
+            app:sv_withEffects3D="false"
+            app:sv_withTremble="false"
+            app:sv_speedTextFormat="INTEGER"
+            app:sv_minSpeed="-120"
+            app:sv_maxSpeed="30"
+            android:layout_centerInParent="true"
+            app:sv_speedometerColor="#000077"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+<RelativeLayout
+    android:id="@+id/relLayout"
+    android:layout_width="match_parent"
+    android:layout_height="0sp"
+    android:layout_weight="70"
+    android:padding="5dp"
+    >
 
     <TextView
         android:id="@+id/ssid"
@@ -27,7 +57,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:text="Send Info"/>
+        android:text="Send Info"
+        android:layout_alignParentRight="true"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go back"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentLeft="true"/>
 
     <TextView
         android:id="@+id/bssid"
@@ -143,3 +183,4 @@
         android:text="TextView"/>
 
 </RelativeLayout>
+</LinearLayout>
